@@ -1,12 +1,16 @@
-package com.example.ejerccio1.entities;
+package com.example.tienda.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Laptop {
     @Id
@@ -16,15 +20,4 @@ public class Laptop {
     private String model;
     private int ram;
     private int storage;
-
-    public Laptop() {
-    }
-
-    public Laptop(Long id, String brand, String model, int ram, int storage) {
-        this.id = id;
-        this.brand = brand;
-        this.model = model;
-        this.ram = ram;
-        this.storage = storage;
-    }
 }

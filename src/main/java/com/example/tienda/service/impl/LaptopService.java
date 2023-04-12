@@ -1,27 +1,28 @@
-package com.example.ejerccio1.controller;
+package com.example.tienda.service.impl;
 
-import com.example.ejerccio1.entities.Laptop;
-import com.example.ejerccio1.repository.LaptopRepository;
+import com.example.tienda.entity.Laptop;
+import com.example.tienda.repository.LaptopRepository;
+import com.example.tienda.service.IlaptopSerice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/laptops")
-public class LaptopController {
+@Service
+public class LaptopService implements IlaptopSerice {
+    @Autowired
     LaptopRepository repository;
 
-    public LaptopController(LaptopRepository repository) {
-        this.repository = repository;
-    }
-    @GetMapping
-    public List<Laptop>findAll(){
+
+    @Override
+    public List<Laptop> findAll() {
         return repository.findAll();
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Laptop> findOneById(@PathVariable Long id){
+
+    @Override
+    public ResponseEntity<Laptop> findOneById(Long id) {
         Optional<Laptop> optionalLaptop=repository.findById(id);
         if(optionalLaptop.isPresent()){
             return ResponseEntity.ok(optionalLaptop.get());
@@ -29,12 +30,14 @@ public class LaptopController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping
-    public Laptop crear(@RequestBody  Laptop laptop){
+
+    @Override
+    public Laptop create(Laptop laptop) {
         return repository.save(laptop);
     }
-    @PutMapping
-    public ResponseEntity<Laptop> update(@RequestBody Laptop laptop){
+
+    @Override
+    public ResponseEntity<Laptop> update(Laptop laptop) {
         Optional<Laptop> opLaptop=repository.findById(laptop.getId());
         if(laptop.getId()!=null){
             if (opLaptop.isPresent()){
@@ -50,9 +53,9 @@ public class LaptopController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Laptop> delete(@PathVariable Long id){
 
+    @Override
+    public ResponseEntity<Laptop> delete(Long id) {
         if(repository.existsById(id)){
             repository.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -60,11 +63,10 @@ public class LaptopController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping
-    public ResponseEntity<Laptop>borrarToldo(){
+
+    @Override
+    public ResponseEntity<Laptop> deleteAll() {
         repository.deleteAll();
         return ResponseEntity.noContent().build();
     }
-
-
 }

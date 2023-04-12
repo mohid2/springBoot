@@ -1,6 +1,6 @@
-package com.example.ejerccio1.controller;
+package com.example.tienda.controller;
 
-import com.example.ejerccio1.entities.Laptop;
+import com.example.tienda.entity.Laptop;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

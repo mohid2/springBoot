@@ -1,6 +1,6 @@
-package com.example.ejerccio1.repository;
+package com.example.tienda.repository;
 
-import com.example.ejerccio1.entities.Laptop;
+import com.example.tienda.entity.Laptop;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LaptopRepository extends JpaRepository<Laptop,Long> {
