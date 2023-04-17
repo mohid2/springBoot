@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface IlaptopSerice {
+public interface LaptopService {
 
     public List<Laptop> findAll();
     public ResponseEntity<Laptop> findOneById(Long id);

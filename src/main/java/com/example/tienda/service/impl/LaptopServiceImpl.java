@@ -2,7 +2,6 @@ package com.example.tienda.service.impl;
 
 import com.example.tienda.entity.Laptop;
 import com.example.tienda.repository.LaptopRepository;
-import com.example.tienda.service.IlaptopSerice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LaptopService implements IlaptopSerice {
+public class LaptopServiceImpl implements com.example.tienda.service.LaptopService {
     @Autowired
     LaptopRepository repository;
 
