@@ -1,16 +1,13 @@
 package com.example.tienda.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@Entity
+@Table(name="laptops")
 public class Laptop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
