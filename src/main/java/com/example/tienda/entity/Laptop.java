@@ -1,9 +1,9 @@
 package com.example.tienda.entity;
 
-
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
+
 
 @Data
 @Entity

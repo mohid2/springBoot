@@ -1,7 +1,9 @@
 package com.example.tienda.service.impl;
 
 import com.example.tienda.entity.Laptop;
+import com.example.tienda.exception.NotFoundLaptopException;
 import com.example.tienda.repository.LaptopRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LaptopServiceImpl implements com.example.tienda.service.LaptopService {
-    @Autowired
-    LaptopRepository repository;
+
+    private final LaptopRepository repository;
 
 
     @Override
@@ -21,13 +24,8 @@ public class LaptopServiceImpl implements com.example.tienda.service.LaptopServi
     }
 
     @Override
-    public ResponseEntity<Laptop> findOneById(Long id) {
-        Optional<Laptop> optionalLaptop=repository.findById(id);
-        if(optionalLaptop.isPresent()){
-            return ResponseEntity.ok(optionalLaptop.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    public Laptop findOneById(Long id) {
+        return repository.findById(id).orElseThrow(()->new NotFoundLaptopException("El laptop con el "+id+" no existe"));
     }
 
     @Override
@@ -36,7 +34,7 @@ public class LaptopServiceImpl implements com.example.tienda.service.LaptopServi
     }
 
     @Override
-    public ResponseEntity<Laptop> update(Laptop laptop) {
+    public Laptop update(Laptop laptop) {
         Optional<Laptop> opLaptop=repository.findById(laptop.getId());
         if(laptop.getId()!=null){
             if (opLaptop.isPresent()){
@@ -44,28 +42,24 @@ public class LaptopServiceImpl implements com.example.tienda.service.LaptopServi
                 laptop.setModel(laptop.getModel());
                 laptop.setRam(laptop.getRam());
                 laptop.setStorage(laptop.getStorage());
-                return ResponseEntity.ok(repository.save(laptop));
-            }else {
-                return ResponseEntity.notFound().build();
+                return repository.save(laptop);
             }
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    }
+        return null;
     }
 
     @Override
-    public ResponseEntity<Laptop> delete(Long id) {
+    public boolean delete(Long id) {
         if(repository.existsById(id)){
             repository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }else {
-            return ResponseEntity.notFound().build();
+            return true;
         }
+            return false;
     }
 
     @Override
-    public ResponseEntity<Laptop> deleteAll() {
+    public boolean deleteAll() {
         repository.deleteAll();
-        return ResponseEntity.noContent().build();
+        return true;
     }
 }

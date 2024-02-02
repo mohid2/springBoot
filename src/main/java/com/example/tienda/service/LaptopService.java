@@ -8,10 +8,10 @@ import java.util.List;
 public interface LaptopService {
 
     public List<Laptop> findAll();
-    public ResponseEntity<Laptop> findOneById(Long id);
+    public Laptop findOneById(Long id);
     public Laptop create(Laptop laptop);
-    public ResponseEntity<Laptop> update(Laptop laptop);
-    public ResponseEntity<Laptop> delete(Long id);
+    public Laptop update(Laptop laptop);
+    public boolean delete(Long id);
 
-    public ResponseEntity<Laptop> deleteAll();
+    public boolean deleteAll();
 }
